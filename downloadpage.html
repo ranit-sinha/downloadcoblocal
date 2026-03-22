@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cob Local</title>
+  <meta name="description" content="Find trusted local service providers in Coochbehar. Free app for Android.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: linear-gradient(110deg, #700000 0%, #b03838 50%, #fff09c 100%);
+      color: white;
+      min-height: 100vh;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 20px 30px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* LOGO */
+    .app-logo {
+      width: 110px; height: 110px;
+      border-radius: 24px;
+      object-fit: contain;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      margin-bottom: 8px;
+      border: 3px solid rgba(255,255,255,0.05);
+      display: block;
+    }
+    .logo-fallback {
+      width: 100px; height: 100px;
+      border-radius: 24px;
+      background: antiquewhite;
+      border: 3px solid antiquewhite;
+      display: none;
+      align-items: center; justify-content: center;
+      font-size: 42px; font-weight: 900; color: #700000;
+      margin-bottom: 10px;
+    }
+
+    /* NAME */
+    .app-name {
+      font-size: 26px; font-weight: 900;
+      color: #ffffff; margin-bottom: 5px; text-shadow: 0px 5px 7px rgba(0,0,0,0.6);
+    }
+    .app-tagline {
+      font-size: 12px; font-weight: 700;
+      color: #ffc003; letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 15px;
+    }
+
+    /* DESC */
+    .app-desc {
+      font-size: 15px; line-height: 1.7;
+      color: antiquewhite;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+    .app-desc strong { color: white; }
+
+    /* PILLS */
+    .pills {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 8px;
+      margin: 5px 0 15px; width: 100%;
+    }
+    .pill {
+      display: flex; align-items: center; gap: 6px;
+      background: #701515;
+      border: 1px solid #700000;
+      border-radius: 30px; padding: 6px 14px;
+      font-size: 12px; font-weight: 700;
+    }
+    .pill i { color: #ffc003; font-size: 11px; }
+
+    /* SECTION LABEL */
+    .section-lbl {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: antiquewhite;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+
+    /* PROVIDER SLIDER */
+    .slider-outer {
+      width: 112%;
+      position: relative;
+      margin-bottom: 10px;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    .slider-track {
+      display: flex;
+      width: 100%;
+      transition: transform 0.55s cubic-bezier(0.77,0,0.175,1);
+      will-change: transform;
+    }
+    .slide {
+      min-width: 100%;
+      width: 100%;
+      height: 220px;
+      flex-shrink: 0;
+      position: relative;
+      background: rgba(255,255,255,0.08);
+    }
+    .slide img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .slide-ph {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 10px; color: rgba(255,255,255,0.2);
+    }
+    .slide-ph i { font-size: 36px; }
+    .slide-ph p { font-size: 12px; font-weight: 600; max-width: 200px; line-height: 1.5; }
+    .slide-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(80,0,0,0.88), transparent);
+      padding: 28px 16px 14px;
+    }
+    .slide-name { font-size: 15px; font-weight: 900; }
+    .slide-role { font-size: 12px; color: #ffc003; font-weight: 600; margin-top: 2px; }
+
+
+    .slider-dots {
+      display: flex; justify-content: center;
+      gap: 6px; margin-bottom: 20px; width: 100%;
+    }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.3); cursor: pointer;
+      transition: all 0.3s;
+    }
+    .dot.active { background: #ffc003; width: 20px; border-radius: 3px; }
+
+    /* DOWNLOAD */
+    .download-btn {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; background: #ffc003; color: #700000;
+      font-weight: 900; font-size: 18px;
+      padding: 18px 24px; border-radius: 50px;
+      text-decoration: none; width: 100%;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      transition: all 0.2s; margin-bottom: 12px;
+    }
+    .download-btn:active { transform: scale(0.98); background: #f5d070; }
+    .download-btn i { font-size: 22px; flex-shrink: 0; }
+    .download-hint {
+      font-size: 12px; color: antiquewhite;
+      margin-bottom: 15px;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 100%; height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin-bottom: 15px;
+      margin-top: 5px;
+    }
+
+    /* SCREENSHOTS — key fix: contained scrolling, no overflow to body */
+    .screenshots-container {
+      width: 113%;
+      overflow: hidden;      /* clips the child */
+      margin-bottom: 15px;
+    }
+    .screenshots-scroll {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 8px;
+    }
+    .screenshots-scroll::-webkit-scrollbar { display: none; }
+    .screenshots-track {
+      display: flex;
+      gap: 8px;
+      width: max-content;
+      padding: 4px 0;
+    }
+    .screenshot {
+      width: 155px; height: 275px;
+      border-radius: 14px; overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px;
+      color: rgba(255,255,255,0.2); font-size: 12px; font-weight: 600;
+    }
+    .screenshot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .screenshot i { font-size: 28px; }
+
+    /* FOOTER */
+    .footer {
+      font-size: 14px; color: #700000;
+      line-height: 1.4; width: 100%;
+    }
+    .footer a { color: #700000 ; text-decoration: none; }
+    .footer a:hover { color: yellow; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- LOGO -->
+  <img src="images/logocl.png" alt="Cob Local" class="app-logo"
+       onerror="this.style.display='none';document.getElementById('lf').style.display='flex';">
+  <div class="logo-fallback" id="lf">CL</div>
+
+  <!-- NAME -->
+  <div class="app-name">Cob Local</div>
+  <div class="app-tagline">Find | Connect | Go</div>
+  
+    <!-- PROVIDER PHOTO SLIDER -->
+  <div class="slider-outer">
+    <div class="slider-track" id="sliderTrack">
+      
+      <div class="slide">
+        <div class="slide-ph"><i class="fa-solid fa-camera"></i><p>Add a provider photo here</p></div>
+        
+      </div>
+      <div class="slide">
+        <div class="slide-ph"><i class="fa-solid fa-image"></i><p>Add a provider photo here</p></div>
+      </div>
+      
+      <div class="slide">
+        <div class="slide-ph"><i class="fa-solid fa-people-group"></i><p>Add a provider photo here</p></div>
+      </div>
+      
+      <div class="slide">
+        <div class="slide-ph"><i class="fa-solid fa-store"></i><p>Add a provider photo here</p></div>
+      </div>
+    </div>
+    
+  
+  </div>
+  
+  <div class="slider-dots" id="sliderDots"></div>
+
+  <!-- DOWNLOAD BUTTON -->
+  <a href="PLACEHOLDER"
+     class="download-btn" id="downloadBtn">
+    <i class="fa-solid fa-download"></i>
+    Download Free APK
+  </a>
+  <div class="download-hint">
+    <i class="fa-brands fa-android"></i>&nbsp; Android · Free · No Play Store needed
+  </div>
+
+  <!-- PILLS -->
+  <div class="pills">
+    <div class="pill"><i class="fa-solid fa-location-dot"></i> Coochbehar Only</div>
+    <div class="pill"><i class="fa-solid fa-id-card"></i> Aadhaar Verified</div>
+    <div class="pill"><i class="fa-solid fa-indian-rupee-sign"></i> 100% Free App</div>
+    <div class="pill"><i class="fa-solid fa-star"></i> Ratings & Reviews</div>
+  </div>
+
+  <!-- DESCRIPTION -->
+  <p class="app-desc">
+    <strong>Coochbehar's own local services app. </strong>Find trusted tutors, drivers, institutes, businesses, and more — all from your town, all verified.
+  </p>
+  <p class="app-desc">
+    Register as a provider and get customers.<br>Browse and connect in seconds. Completely <strong>free</strong> for everyone.
+  </p>
+
+  <!-- DIVIDER -->
+  <div class="divider"></div>
+
+  <!-- SCREENSHOTS -->
+  <div class="section-lbl">App Screenshots</div>
+  <div class="screenshots-container">
+    <div class="screenshots-scroll">
+      <div class="screenshots-track">
+        <div class="screenshot"><i class="fa-solid fa-mobile-screen"></i><span>Screen 1</span></div>
+        <div class="screenshot"><i class="fa-solid fa-mobile-screen"></i><span>Screen 2</span></div>
+        <div class="screenshot"><i class="fa-solid fa-mobile-screen"></i><span>Screen 3</span></div>
+        <div class="screenshot"><i class="fa-solid fa-mobile-screen"></i><span>Screen 4</span></div>
+        <div class="screenshot"><i class="fa-solid fa-mobile-screen"></i><span>Screen 5</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+   <b> © 2026 Cob Local · Coochbehar, West Bengal<br>
+    Made with love for the people of Coochbehar<br><br></b>
+   <b> <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="contact.html">Contact</a></b>
+  </div>
+
+</div>
+<script src="downloadpage.js"></script>
+</body>
+</html>
